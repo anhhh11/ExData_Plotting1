@@ -2,4 +2,5 @@
 !*.r
 !*.R
 !*.png
-
+!*.Rproj
+.Rproj.user
