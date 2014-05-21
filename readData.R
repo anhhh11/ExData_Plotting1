@@ -1,12 +1,16 @@
 library("data.table")
+library("lubridate")
 #Read data from source
-#dataUrl  <-  "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
-#dataZippedFilename <- "household_power_consumption.zip"
-#download.file(dataUrl,method="curl",mode="b",destfile=dataZippedFilename)
-#unzip(zipfile=dataZippedFilename)
 dataFilename <- "household_power_consumption.txt"
-#Read only date column
-dataDate <- fread(dataFilename,sep=";",
+if (!file.exists(dataFilename)) {
+  dataUrl  <-  "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+  dataZippedFilename <- "household_power_consumption.zip"
+  #download.file(dataUrl,method="curl",mode="b",destfile=dataZippedFilename) -- SLOW just manually download
+  unzip(zipfile=dataZippedFilename)
+  #Read only date column
+}
+dataDate <- fread(dataFilename,
+                  sep=";",
                   na.strings=c("?"),
                   header=TRUE,
                   select=c("Date"))
