@@ -1,5 +1,6 @@
 library("data.table")
 library("lubridate")
+library("fasttime")
 #Read data from source
 dataFilename <- "household_power_consumption.txt"
 if (!file.exists(dataFilename)) {
@@ -26,5 +27,6 @@ data <- fread(dataFilename,sep=";",
 
 setnames(data,1:ncol(data),colnames(fread(dataFilename,nrows=0,header=TRUE)))
 #Convert date,time str to datetime
-data$DateTime <- as.POSIXct(paste(data$Date, data$Time), format="%d/%m/%Y %H:%M:%S")
+data$DateTime <- as.POSIXct(paste(data$Date, data$Time),format="%d/%m/%Y %H:%M:%S")
+#data$DateTime <- fastPOSIXct(paste(data$Date, data$Time)) -- can't use not right format
 #Assign column name to data
